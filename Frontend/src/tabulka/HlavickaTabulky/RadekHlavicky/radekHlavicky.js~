@@ -1,0 +1,19 @@
+import React, { Component } from 'react';
+
+export default class RadekHlavicky extends Component {
+    render() {
+      const { vstup } = this.props
+      this.bunky = []
+      for (const bunka of vstup ) {
+        				this.bunky.push(<BunkaHlavicky bunkaHlavicky={bunka} 
+        														 ID_Radku={this.props.ID} 
+        														 ID={i} />)
+        				i=i+1
+        				}  
+    	return (
+    	<tr key="Radek Hlavicky">
+    		{this.bunky} 
+    	</tr>     	
+    );
+  }
+}

@@ -1,0 +1,76 @@
+import React, { Component } from 'react';
+import UserInput from './UserInput';
+
+export default class NewUserForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { vstup: this.props.hlavicka,
+        					  vystup:this.props.hlavicka,
+        					  radek:null};
+
+        const handleChange = (name, ID, value) => {
+        			var newState = [];
+        			var i=0
+        			for (const a of this.props.hlavicka) {
+        					if (a == ID) {
+        						newState.push(value)}
+        					else {newState.push(this.state.vystup[i])}
+        					i++
+        					}
+        			this.setState({ [name]: value,
+        						vystup: newState})
+        							console.log(`zapisuji stav ${this.state.vystup}`);
+        						}
+        this.handleChangeEdit = [];
+
+        for (const ch of this.props.hlavicka) {
+
+        		this.handleChangeEdit.push(handleChange.bind(this, "zmena" + ch.toString(),ch));
+        	}
+        this.ulozitUzivatele = this.ulozitUzivatele.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+         }     
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const z = [];
+        for (var i in this.state.vystup) {
+        		if (i>0) {z.push(this.state.vystup[i])}
+		  		}
+        console.log(`pridam v handle submit ${z}`);
+        this.props.pridej({z});  
+        }	
+        
+    ulozitUzivatele () {
+			const z = this.state.vystup
+	
+        console.log(`ulozi novy radek ${z}`);
+        this.props.editRadku(this.props.ID_Radku,z)
+        this.props.editovat()
+     }       
+
+
+    render() {
+        console.log(`zapisuji hlavicku ${this.props.hlavicka},
+        								 vstup:${this.state.vstup},
+        								 vystup:${this.state.vystup} `);
+        const formular = [];
+        var i=0;
+        for (const item of this.props.hlavicka){
+            if (item != "ID"){
+               formular.push(<UserInput name={item} label={item}
+                                   value={this.state.vstup[i]}
+                                   onChange={this.handleChangeEdit[i]}/>)
+               }
+            i++
+            }
+        return (
+            <form className="addUserForm" onSubmit={this.handleSubmit}>
+                 { formular }
+
+                <input type="submit" value="Ulož" />
+            </form>
+        );
+    }
+}
+

@@ -1,0 +1,14 @@
+import React, { Component } from 'react';
+
+export default class Bunka extends Component {
+    render() {
+        const { bunka,ID_Radku, ID } = this.props;
+        const classname = ID_Radku+ID
+        console.log(`pisu v bunce ${bunka}, ${classname}`)
+    return (
+      <td key={classname}>
+        {bunka} 
+      </td>
+    );
+  }
+}

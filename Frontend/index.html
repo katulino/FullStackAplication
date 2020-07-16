@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Single component react table</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    
+    
+	 // uzivatele: id,name, nick ..atd	
+		const uzivatele = [[1,"petr","peta", "cip",8,9],
+									[2,"Pavel","Paja","NECO"],
+									[3,"Jirka","Jira"]
+									]
+	// funkce pro vytvoření tabulky	
+	function CreateTable(props) {
+		const radky = [];
+		const table = props.table;
+		// načítá postupně řádky		
+		for (const radek of table ) {
+			// radka = řada buněk tabulky html prvek td
+			const radka = radek.map((bunkaRadku) =>
+    			<td key={bunkaRadku.toString()}>
+      			{bunkaRadku}
+    			</td>
+    		);
+    		// radky = pole řad upravených pro tabulku
+    		radky.push(radka) 
+    		   				
+		}
+		// vytvoří z řádek prvky tr do tabulky
+		const tabulka = radky.map((tabRadek) =>
+    			<tr key={tabRadek.toString()}>
+      				{tabRadek}
+    			</tr>
+    	);			
+    	return (
+    <div>
+    	<h1 id='title'>React Dynamic Table</h1>
+    		<table id = 'table'>
+    			<tbody>
+    				{tabulka}
+    			</tbody>
+    		</table>
+    	</div>
+  );
+		}
+		
+	
+ReactDOM.render(
+  				<CreateTable table={uzivatele} />,
+  document.getElementById('root')
+);
+    </script>
+    
+    
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      To set up a production-ready React build environment, follow these instructions:
+      * https://reactjs.org/docs/add-react-to-a-new-app.html
+      * https://reactjs.org/docs/add-react-to-an-existing-app.html
+      You can also use React without JSX, in which case you can remove Babel:
+      * https://reactjs.org/docs/react-without-jsx.html
+      * https://reactjs.org/docs/cdn-links.html
+    -->
+  </body>
+</html>
